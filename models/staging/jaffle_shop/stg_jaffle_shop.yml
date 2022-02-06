@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: Staging copy of raw customers data after cleaning up some fields.
+    columns: 
+      - name: customer_id
+        description: Primary key for staging copy of customers data.
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_orders
+    description: Staging copy of raw orders data after cleaning up some fields.
+    columns:
+      - name: order_id
+        description: Primary key for staging copy of orders data.
+        tests:
+          - unique
+          - not_null
+      - name: status
+        description: '{{ doc("order_status") }}'
+        tests:
+          - name: status
+        tests:
+          - accepted_values:
+              values:
+                - completed
+                - shipped
+                - returned
+                - return_pending
+                - placed
+      - name: customer_id
+        description: Foreign key for customer_id in stg_customers.
+        tests:
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id

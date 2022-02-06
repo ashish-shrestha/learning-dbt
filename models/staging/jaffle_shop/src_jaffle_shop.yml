@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    description: Source BigQuery database where Jaffle Shop data resides
+    database: dbt-tutorial
+    schema: jaffle_shop
+    tables:
+      - name: customers
+        description: Source of customers data.
+      - name: orders
+        description: Source of orders data.
